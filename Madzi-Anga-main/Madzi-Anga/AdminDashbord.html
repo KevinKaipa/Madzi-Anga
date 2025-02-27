@@ -63,19 +63,6 @@
             margin-bottom: 15px;
         }
 
-        .dashboard-header button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .dashboard-header button:hover {
-            background-color: #a71d2a;
-        }
-
         .widgets {
             display: flex;
             gap: 20px;
@@ -91,46 +78,29 @@
             text-align: center;
         }
 
-        .table-container {
+        .charts-container {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .chart-box {
+            flex: 1;
             background: white;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
             text-align: center;
         }
 
-        th {
-            background-color: #0077b6;
-            color: white;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1px;
-            background-color: #0077b6;
-            color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            left: 250px;
+        canvas {
+            max-width: 100%;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>Madzi Anga Admin</h2>
         <ul>
@@ -141,14 +111,12 @@
         </ul>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
         <div class="dashboard-header">
             <h1>System Administrator Dashboard</h1>
             <button onclick="signOut()">Sign Out</button>
         </div>
 
-        <!-- Dashboard Section -->
         <div id="dashboard">
             <div class="widgets">
                 <div class="widget">
@@ -164,57 +132,17 @@
                     <p style="color: green;">Online</p>
                 </div>
             </div>
-        </div>
 
-        <!-- Users Section -->
-        <div id="users" style="display: none;">
-            <h2>User Management</h2>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>ID Number</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Permissions</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr><td>MA001SA</td><td>Kevin Kaipa</td><td>Admin</td><td>Full Access</td><td>Active</td></tr>
-                    <tr><td>MA002ST</td><td>Jane Doe</td><td>User</td><td>View Only</td><td>Active</td></tr>
-                    <tr><td>MA003OP</td><td>John Smith</td><td>Operator</td><td>Manage Billing</td><td>Suspended</td></tr>
-                    <tr><td>MA004MG</td><td>Mary Johnson</td><td>Manager</td><td>Approve Requests</td><td>Active</td></tr>
-                    <tr><td>MA005TC</td><td>Robert Chirwa</td><td>Technician</td><td>System Maintenance</td><td>Active</td></tr>
-                    <tr><td>MA006RE</td><td>Linda Phiri</td><td>Reporter</td><td>Generate Reports</td><td>Inactive</td></tr>
-                    <tr><td>MA007ST</td><td>Peter Banda</td><td>User</td><td>View Only</td><td>Active</td></tr>
-                    <tr><td>MA008SA</td><td>Alice Moyo</td><td>Admin</td><td>Full Access</td><td>Active</td></tr>
-                </table>
+            <div class="charts-container">
+                <div class="chart-box">
+                    <h3>Water Usage Breakdown</h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Active Users Over Time</h3>
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
-        </div>
-
-        <!-- Logs Section -->
-        <div id="logs" style="display: none;">
-            <h2>System Logs</h2>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Timestamp</th>
-                        <th>User</th>
-                        <th>Action</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr><td>12:45 PM</td><td>Kevin Kaipa</td><td>Updated User Permissions</td><td>Success</td></tr>
-                    <tr><td>1:10 PM</td><td>Jane Doe</td><td>Logged In</td><td>Success</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Settings Section -->
-        <div id="settings" style="display: none;">
-            <h2>System Settings</h2>
-            <ul>
-                <li>Monitor System Status</li>
-                <li>Manage Payments</li>
-                <li>Security Settings</li>
-            </ul>
         </div>
     </div>
 
@@ -228,7 +156,31 @@
             alert("Signing out...");
             window.location.href = "index.html";
         }
-    </script>
 
+        const ctxPie = document.getElementById('pieChart').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['Households', 'Industries', 'Agriculture', 'Others'],
+                datasets: [{
+                    data: [50, 30, 15, 5],
+                    backgroundColor: ['#0077b6', '#00b4d8', '#90e0ef', '#caf0f8']
+                }]
+            }
+        });
+
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: [90, 95, 100, 105, 107],
+                    backgroundColor: '#0077b6'
+                }]
+            }
+        });
+    </script>
 </body>
 </html>
