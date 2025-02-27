@@ -13,66 +13,80 @@
             padding: 0;
             background-color: #f4f4f9;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .login-section, .dashboard-section {
+        .content {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+        }
+
+        .dashboard-section {
+            flex: 1;
             text-align: center;
-            padding: 50px 20px;
             background-color: #e0f7fa;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            max-width: 600px;
+            padding: 20px;
         }
 
-        .login-section h2, .dashboard-section h2 {
+        .widget-section {
+            width: 250px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        .widget-section h3 {
             color: #0077b6;
         }
 
-        .login-section input, .login-section button {
-            margin: 10px 0;
-            padding: 10px;
-            width: 100%;
-            max-width: 300px;
-            font-size: 16px;
+        .widget-section ul {
+            list-style: none;
+            padding: 0;
         }
 
-        .login-section button {
+        .widget-section ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .widget-section ul li a {
+            text-decoration: none;
+            color: #0077b6;
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .home-button, .signout-button {
             background-color: #0077b6;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            width: 200px;
         }
 
-        .dashboard-section {
-            display: none;
-        }
-
-        .chart-container, .table-container {
-            max-width: 900px;
+        .chart-container {
+            max-width: 600px;
             margin: 20px auto;
             padding: 20px;
             background: white;
-            border-radius: 5px;
+            border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #0077b6;
-            color: white;
         }
 
         footer {
@@ -80,6 +94,7 @@
             padding: 10px 0;
             background-color: #0077b6;
             color: white;
+            position: relative;
         }
     </style>
 </head>
@@ -88,18 +103,19 @@
         <h1>Customer Dashboard - Madzi Anga</h1>
     </header>
 
-    <main>
-        <section class="login-section" id="login-section">
-            <h2>Customer Login</h2>
-            <p>Please enter your credentials to access your dashboard.</p>
-            <input type="text" id="customer-username" placeholder="Username" required>
-            <input type="password" id="customer-password" placeholder="Password" required>
-            <button onclick="validateCustomer()">Login</button>
-        </section>
-
-        <section class="dashboard-section" id="dashboard-section">
+    <main class="content">
+        <aside class="widget-section">
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="#">Billing</a></li>
+                <li><a href="#">Usage Reports</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </aside>
+        
+        <section class="dashboard-section">
             <h2>Welcome, Customer!</h2>
-            
             <div class="table-container">
                 <h3>Purchase History</h3>
                 <table>
@@ -111,16 +127,15 @@
                     <tr>
                         <td>2024-02-20</td>
                         <td>50</td>
-                        <td>$5.00</td>
+                        <td>MWK5.00</td>
                     </tr>
                     <tr>
                         <td>2024-02-22</td>
                         <td>30</td>
-                        <td>$3.00</td>
+                        <td>MWK3.00</td>
                     </tr>
                 </table>
             </div>
-
             <div class="chart-container">
                 <h3>Water Usage Analytics</h3>
                 <canvas id="usageChart"></canvas>
@@ -128,41 +143,24 @@
         </section>
     </main>
 
+    <div class="button-container">
+        <button class="home-button" onclick="goHome()">Home</button>
+        <button class="signout-button" onclick="signOut()">Sign Out</button>
+    </div>
+
     <footer>
         <p>&copy; 2024 Madzi Anga</p>
     </footer>
 
     <script>
-        const CUSTOMER_USERNAME = "customer";
-        const CUSTOMER_PASSWORD = "pass123";
-
-        function validateCustomer() {
-            const username = document.getElementById("customer-username").value;
-            const password = document.getElementById("customer-password").value;
-
-            if (username === CUSTOMER_USERNAME && password === CUSTOMER_PASSWORD) {
-                alert("Login successful!");
-                document.getElementById("login-section").style.display = "none";
-                document.getElementById("dashboard-section").style.display = "block";
-                loadUsageChart();
-            } else {
-                alert("Invalid credentials. Please try again.");
-            }
+        function goHome() {
+            alert("Going to Home Page");
+            window.location.href = "C:\Users\Madzi-Anga-main\Madzi-Anga";
         }
 
-        function loadUsageChart() {
-            const ctx = document.getElementById("usageChart").getContext("2d");
-            new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-                    datasets: [{
-                        label: "Water Usage (Liters)",
-                        data: [150, 200, 180, 250, 300, 270],
-                        backgroundColor: "#0077b6"
-                    }]
-                }
-            });
+        function signOut() {
+            alert("Signing Out");
+            document.getElementById("dashboard-section").style.display = "none";
         }
     </script>
 </body>
