@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Madzi Anga</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .widget {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            margin: 10px;
+        }
+
+        .widget h3 {
+            text-align: center;
+            color: #0077b6;
+        }
+
+        .purchase-history table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .purchase-history th, .purchase-history td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-card {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            margin: 5px;
+        }
+
+        .airtel-money {
+            background-color: red;
+        }
+
+        .madzi-card {
+            background-color: #0077b6;
+        }
+
+        .chart-container {
+            width: 100%;
+            text-align: center;
+        }
+
+        .customer-profile {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 25%;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .home-button, .signout-button {
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            width: 150px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #0077b6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <main class="content">
+        <div class="widget customer-profile">
+            <h3>Customer Profile</h3>
+            <p><strong>Name:</strong> Kevin Kaipa</p>
+            <p><strong>Email:</strong> kevinkaipa9@gmail.com</p>
+            <p><strong>Phone:</strong> +265 992 601 990</p>
+            <p><strong>Account Balance:</strong> MWK 500.00</p>
+        </div>
+
+        <div class="widget purchase-history">
+            <h3>Purchase History</h3>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Liters Purchased</th>
+                    <th>Amount Paid</th>
+                    <th>Location</th>
+                </tr>
+                <tr>
+                    <td>2024-02-20</td>
+                    <td>50</td>
+                    <td>MWK5.00</td>
+                    <td>Madzi Anga Kiosk 1</td>
+                </tr>
+                <tr>
+                    <td>2024-02-22</td>
+                    <td>30</td>
+                    <td>MWK3.00</td>
+                    <td>Madzi Anga Kiosk 2</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="widget payment-methods">
+            <div class="payment-card airtel-money">
+                <h3>Airtel Money</h3>
+                <p>Pay securely via Airtel Money.</p>
+            </div>
+            <div class="payment-card madzi-card">
+                <h3>MadziCard</h3>
+                <p>Use your RFID MadziCard for purchases.</p>
+            </div>
+        </div>
+
+        <div class="widget chart-container">
+            <h3>Water Usage Analytics</h3>
+            <canvas id="usageChart"></canvas>
+        </div>
+    </main>
+
+    <div class="button-container">
+        <button class="home-button" onclick="goHome()">Home</button>
+        <button class="signout-button" onclick="signOut()">Sign Out</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Madzi Anga</p>
+    </footer>
+</body>
+</html>
