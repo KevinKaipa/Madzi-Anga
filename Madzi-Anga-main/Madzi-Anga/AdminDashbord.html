@@ -57,7 +57,7 @@
             justify-content: space-between;
             align-items: center;
             background-color: white;
-            padding: 40px;
+            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 15px;
@@ -91,12 +91,29 @@
             text-align: center;
         }
 
-        .chart-container {
+        .table-container {
             background: white;
-            padding: 10px;
+            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0077b6;
+            color: white;
         }
 
         footer {
@@ -136,7 +153,7 @@
             <div class="widgets">
                 <div class="widget">
                     <h3><i class="bi bi-person-check"></i> Active Users</h3>
-                    <p>145</p>
+                    <p>107</p>
                 </div>
                 <div class="widget">
                     <h3><i class="bi bi-water"></i> Daily Water Usage</h3>
@@ -147,68 +164,70 @@
                     <p style="color: green;">Online</p>
                 </div>
             </div>
-
-            <div class="chart-container">
-                <h3>Water Consumption Analytics</h3>
-                <canvas id="waterChart"></canvas>
-            </div>
         </div>
 
         <!-- Users Section -->
         <div id="users" style="display: none;">
             <h2>User Management</h2>
-            <p>List of registered users, account statuses, and permissions.</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>ID Number</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Permissions</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr><td>MA001SA</td><td>Kevin Kaipa</td><td>Admin</td><td>Full Access</td><td>Active</td></tr>
+                    <tr><td>MA002ST</td><td>Jane Doe</td><td>User</td><td>View Only</td><td>Active</td></tr>
+                    <tr><td>MA003OP</td><td>John Smith</td><td>Operator</td><td>Manage Billing</td><td>Suspended</td></tr>
+                    <tr><td>MA004MG</td><td>Mary Johnson</td><td>Manager</td><td>Approve Requests</td><td>Active</td></tr>
+                    <tr><td>MA005TC</td><td>Robert Chirwa</td><td>Technician</td><td>System Maintenance</td><td>Active</td></tr>
+                    <tr><td>MA006RE</td><td>Linda Phiri</td><td>Reporter</td><td>Generate Reports</td><td>Inactive</td></tr>
+                    <tr><td>MA007ST</td><td>Peter Banda</td><td>User</td><td>View Only</td><td>Active</td></tr>
+                    <tr><td>MA008SA</td><td>Alice Moyo</td><td>Admin</td><td>Full Access</td><td>Active</td></tr>
+                </table>
+            </div>
         </div>
 
         <!-- Logs Section -->
         <div id="logs" style="display: none;">
             <h2>System Logs</h2>
-            <p>Recent activity, errors, and security logs.</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr><td>12:45 PM</td><td>Kevin Kaipa</td><td>Updated User Permissions</td><td>Success</td></tr>
+                    <tr><td>1:10 PM</td><td>Jane Doe</td><td>Logged In</td><td>Success</td></tr>
+                </table>
+            </div>
         </div>
 
         <!-- Settings Section -->
         <div id="settings" style="display: none;">
             <h2>System Settings</h2>
-            <p>Update configurations, API keys, and security settings.</p>
+            <ul>
+                <li>Monitor System Status</li>
+                <li>Manage Payments</li>
+                <li>Security Settings</li>
+            </ul>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Madzi Anga</p>
-    </footer>
-
     <script>
-        function showSection(sectionId) {
-            document.getElementById("dashboard").style.display = "none";
-            document.getElementById("users").style.display = "none";
-            document.getElementById("logs").style.display = "none";
-            document.getElementById("settings").style.display = "none";
-
-            document.getElementById(sectionId).style.display = "block";
+        function showSection(id) {
+            document.querySelectorAll('.main-content > div').forEach(div => div.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
         }
 
         function signOut() {
             alert("Signing out...");
             window.location.href = "index.html";
         }
-
-        // Load Chart
-        document.addEventListener("DOMContentLoaded", function () {
-            const ctx = document.getElementById("waterChart").getContext("2d");
-            new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-                    datasets: [{
-                        label: "Water Usage (Liters)",
-                        data: [1200, 1500, 1800, 1700, 1600, 1400, 1900],
-                        borderColor: "#0077b6",
-                        backgroundColor: "rgba(0, 119, 182, 0.2)",
-                        fill: true
-                    }]
-                }
-            });
-        });
     </script>
 
 </body>
