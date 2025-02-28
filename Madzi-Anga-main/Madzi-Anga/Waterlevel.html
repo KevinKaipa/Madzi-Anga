@@ -14,6 +14,8 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            background-color: #e0f2fe;
+            color: #0f172a;
         }
         .dashboard {
             display: grid;
@@ -23,18 +25,31 @@
         }
         .widget {
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 2px solid #0284c7;
             border-radius: 10px;
             text-align: center;
+            background: #f0f9ff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .gauge {
             font-size: 24px;
             font-weight: bold;
+            color: #0284c7;
+        }
+        .iot-status {
+            background: #0284c7;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Madzi Anga Dashboard</h1>
+    <span class="iot-status">Connected to IoT Devices</span>
     <div class="dashboard">
         <!-- Water Level Gauge Widget -->
         <div class="widget">
@@ -61,7 +76,7 @@
                 datasets: [{
                     label: "Water Level",
                     data: [],
-                    borderColor: "#3b82f6",
+                    borderColor: "#0284c7",
                     borderWidth: 2,
                     fill: false,
                 }]
