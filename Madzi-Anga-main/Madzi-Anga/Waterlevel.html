@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madzi Anga Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        .widget {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .gauge {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Madzi Anga Dashboard</h1>
+    <div class="dashboard">
+        <!-- Water Level Gauge Widget -->
+        <div class="widget">
+            <h2>Current Water Level</h2>
+            <div class="gauge" id="waterLevel">50%</div>
+        </div>
+
+        <!-- Water Usage Trend Chart Widget -->
+        <div class="widget">
+            <h2>Water Usage Trends</h2>
+            <canvas id="waterChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let waterLevel = 50;
+        const waterLevelElement = document.getElementById("waterLevel");
+        const ctx = document.getElementById("waterChart").getContext("2d");
+
+        const waterChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "Water Level",
+                    data: [],
+                    borderColor: "#3b82f6",
+                    borderWidth: 2,
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    y: { min: 0, max: 100 }
+                }
+            }
+        });
+
+        function updateDashboard() {
+            waterLevel = Math.max(0, Math.min(100, waterLevel + (Math.random() * 10 - 5)));
+            waterLevelElement.textContent = waterLevel.toFixed(1) + "%";
+            const now = new Date().toLocaleTimeString();
+            waterChart.data.labels.push(now);
+            waterChart.data.datasets[0].data.push(waterLevel);
+            if (waterChart.data.labels.length > 10) {
+                waterChart.data.labels.shift();
+                waterChart.data.datasets[0].data.shift();
+            }
+            waterChart.update();
+        }
+
+        setInterval(updateDashboard, 3000);
+    </script>
+</body>
+</html>
